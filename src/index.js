@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import Welcome from "react-welcome-page";
+import "./assets/index.css";
 
 //function component: contains no state and only has render method
 function Square(props) {
@@ -103,13 +104,29 @@ class Game extends React.Component {
     }
 
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board squares={current.squares} onClick={i => this.handleClick(i)} />
-        </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
+      <div id="my-container">
+        <Welcome
+          loopDuration={2000}
+          data={[
+            {
+              text: "Welcome to TicTacToe",
+              textAnimation: "flipInX",
+              backgroundColor: "#34eba4",
+              textColor: "#002134"
+            }
+          ]}
+        />
+        <div className="game">
+          <div className="game-board">
+            <Board
+              squares={current.squares}
+              onClick={i => this.handleClick(i)}
+            />
+          </div>
+          <div className="game-info">
+            <div>{status}</div>
+            <ol>{moves}</ol>
+          </div>
         </div>
       </div>
     );
