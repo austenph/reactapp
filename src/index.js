@@ -112,7 +112,7 @@ class Game extends React.Component {
               text: "Welcome to TicTacToe",
               textAnimation: "flipInX",
               backgroundColor: "#34eba4",
-              textColor: "#002134"
+              textColor: "#97f7cf"
             }
           ]}
         />
