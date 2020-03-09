@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
-//function component contains no state and only has render method
+//function component: contains no state and only has render method
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -11,7 +11,6 @@ function Square(props) {
   );
 }
 
-//controlling component maintains state
 class Board extends React.Component {
   renderSquare(i) {
     return (
@@ -23,23 +22,19 @@ class Board extends React.Component {
   }
 
   render() {
+    const rowCount = 3,
+      colCount = 3;
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {[...new Array(rowCount)].map((x, rowIndex) => {
+          return (
+            <div className="board-row" key={rowIndex}>
+              {[...new Array(colCount)].map((y, colIndex) =>
+                this.renderSquare(rowIndex * colCount + colIndex)
+              )}
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -89,7 +84,7 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const winner = calculateWinner(current.squares, current.stepNumber);
 
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move #" + move : "Go to game start";
@@ -121,7 +116,7 @@ class Game extends React.Component {
   }
 }
 
-function calculateWinner(squares) {
+function calculateWinner(squares, stepNumber) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -136,6 +131,8 @@ function calculateWinner(squares) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
+    } else if (!squares.includes(null)) {
+      return "Draw";
     }
   }
   return null;
