@@ -1,3 +1,5 @@
+Create React App Practice Project, a simple TicTacToe game with state management.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
